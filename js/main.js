@@ -23,6 +23,9 @@ var getRandomItem = function(array){
 var getRandomInt = function(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
+var pictureTemplate = document.querySelector('#picture')
+    .content
+    .querySelector('.picture');
 var createComment = function(){
   var comment =
     {
@@ -41,14 +44,22 @@ var generateComments = function(count){
 }
 var createPhotoObject = function(number) {
 
-  return{
+  picture = {
     url: "photos/"+ number + ".jpg",
     likes: getRandomInt(15, 200),
     comments: generateComments(getRandomInt(1, 10)),
   }
-
+  return picture
 }
+var renderPicture = function (picture) {
+  var pictureElement = pictureTemplate.cloneNode(true);
 
+  pictureElement.querySelector('.picture__img[src]').value = picture.url;
+  pictureElement.querySelector('.picture__likes').value = picture.likes;
+  pictureElement.querySelector('.picture__comments').textContent = picture.comments;
+
+  return pictureElement;
+}
 var generateData = function(count) {
   var array = [];
   for (var i=0; i < count; i++) {
