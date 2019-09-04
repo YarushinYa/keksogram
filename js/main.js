@@ -1,7 +1,8 @@
 var MAX_SCALE = 100;
 var MIN_SCALE = 25;
 var SCALE_STEP = 25;
-var INITIAL_EFFECT = "img-upload__preview"
+var INITIAL_EFFECT = "img-upload__preview";
+var currentScale = 100;
 var names = [
   "Саша",
   "Алексей",
@@ -29,7 +30,8 @@ var getRandomItem = function(array){
 var getRandomInt = function(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
-var currentScale = 100;
+var bigPictureCancel = document.querySelector('.big-picture__cancel');
+var showImage = document.querySelector('.pictures')
 var effectButton = document.querySelector('.img-upload__effects');
 var imgUploadScaleValue = document.querySelector('.scale__control--value');
 var imgPreview = document.querySelector('.img-upload__preview');
@@ -144,10 +146,9 @@ var scaleSmallerButton = function(){
   setImageScale(currentScale - SCALE_STEP);
 
 };
-// var changeImageEffect = function(){
-
-// };
-
+var closeBigPicture = function(){
+  document.querySelector(".big-picture").classList.add("hidden");
+}
 uploadFileButton.addEventListener('change', function(){
   showUploadWindow()
 });
@@ -163,14 +164,17 @@ imgUploadScaleBigger.addEventListener('click', function(){
   scaleBiggerButton();
 });
 effectButton.addEventListener('change', function(){
-  if(imgPreview.classList = INITIAL_EFFECT){
+  imgPreview.classList = INITIAL_EFFECT
   var activeEffectElement = effectButton.querySelector(".effects__radio:checked");
 
   imgPreview.classList.add('effects__preview--' + activeEffectElement.value );
-  }
-  else{
-    imgPreview.classList.remove('effects__preview--' + activeEffectElement.value );
-  }
+
+});
+showImage.addEventListener('click', function(){
+  renderBigPicture();
+});
+bigPictureCancel.addEventListener('click', function(){
+  closeBigPicture();
 });
 //var bigPictureTemplate = document.querySelector(".big-picture").classList.remove("hidden");
 document.querySelector(".social__comment-count").classList.add("visually-hidden");
